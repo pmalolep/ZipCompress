@@ -74,13 +74,13 @@ public class RangeComparator implements Comparator<List<Integer>> {
     }
 }
 ```
-##### makeListofLists
-Used for easier test making, and recycled for command line implementation of ZipCompress.
+##### makeRangePairList
+Method for optional input preparation. Used to making a straight integer list into a range-pair list
 ```java
-private List<List<Integer>> makeListofLists(List<Integer> arr) {
+public static List<List<Integer>> makeRangePairList(List<Integer> array) {
     List<List<Integer>> list = new ArrayList<>();
-    for (int index = 0; index < arr.size(); index += 2) {
-        list.add(Arrays.asList(arr.get(index), arr.get(index + 1)));
+    for (int index = 0; index < array.size(); index += 2) {
+        list.add(Arrays.asList(array.get(index), array.get(index + 1)));
     }
     return list;
 }
