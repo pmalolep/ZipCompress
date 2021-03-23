@@ -3,7 +3,12 @@ import java.util.List;
 
 public class RangeComparator implements Comparator<List<Integer>> {
 
-    // sorts range pairs by low value, then high value
+    /**
+     * for comparing range-pairs against each other
+     * @param o1 a range-pair to compare
+     * @param o2 a range-pair to compare
+     * @return -1, 0, 1 for comparison
+     */
     @Override
     public int compare(List<Integer> o1, List<Integer> o2) {
         int lowerCompare = o1.get(0).compareTo(o2.get(0));

@@ -10,7 +10,7 @@ public class ZipCompressTest {
 
     @Test
     public void firstTest() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(94133, 94133, 94200, 94299, 94600, 94699));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(94133, 94133, 94200, 94299, 94600, 94699));
         String expected = "[[94133, 94133], [94200, 94299], [94600, 94699]]";
         List<List<Integer>> result = ZipCompress.process(testList);
 
@@ -19,7 +19,7 @@ public class ZipCompressTest {
 
     @Test
     public void secondTest() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(94133, 94133, 94200, 94299, 94226, 94399));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(94133, 94133, 94200, 94299, 94226, 94399));
         String expected = "[[94133, 94133], [94200, 94399]]";
         List<List<Integer>> result = ZipCompress.process(testList);
 
@@ -28,7 +28,7 @@ public class ZipCompressTest {
 
     @Test
     public void getTwoRangesFromFive() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(20000, 30000, 10000, 20000, 60000, 70000, 10000, 50000, 70000, 90000));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(20000, 30000, 10000, 20000, 60000, 70000, 10000, 50000, 70000, 90000));
         String expected = "[[10000, 50000], [60000, 90000]]";
         List<List<Integer>> result = ZipCompress.process(testList);
 
@@ -45,7 +45,7 @@ public class ZipCompressTest {
 
     @Test
     public void reversedRange() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(95000, 65000, 64000, 30000, 40000, 25000));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(95000, 65000, 64000, 30000, 40000, 25000));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[[25000, 64000], [65000, 95000]]";
 
@@ -54,7 +54,7 @@ public class ZipCompressTest {
 
     @Test
     public void singleValueRange() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(25000, 25000));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(25000, 25000));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[[25000, 25000]]";
 
@@ -63,7 +63,7 @@ public class ZipCompressTest {
 
     @Test
     public void compressToOneRange() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(15000, 95000, 25000, 35000, 45000, 55000, 65000, 75000));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(15000, 95000, 25000, 35000, 45000, 55000, 65000, 75000));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[[15000, 95000]]";
 
@@ -72,7 +72,7 @@ public class ZipCompressTest {
 
     @Test
     public void nullInRange() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(15000, 25000, 25000, 35000, 45000, null, 65000, 75000));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(15000, 25000, 25000, 35000, 45000, null, 65000, 75000));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[[15000, 35000], [65000, 75000]]";
 
@@ -131,7 +131,7 @@ public class ZipCompressTest {
 
     @Test
     public void smallRanges() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(0, 0, 1, 1, 2, 2, 3, 3));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(0, 0, 1, 1, 2, 2, 3, 3));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[[0, 3]]";
 
@@ -140,7 +140,7 @@ public class ZipCompressTest {
 
     @Test
     public void smallRangesPartDuex() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(0, 0, 1, 1, 2, 2, 3, 3, 5, 7));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(0, 0, 1, 1, 2, 2, 3, 3, 5, 7));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[[0, 3], [5, 7]]";
 
@@ -149,7 +149,7 @@ public class ZipCompressTest {
 
     @Test
     public void outOfBoundsRanges() {
-        List<List<Integer>> testList = makeListofLists(Arrays.asList(-1,0,99999,1000000));
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(Arrays.asList(-1,0,99999,1000000));
         List<List<Integer>> result = ZipCompress.process(testList);
         String expected = "[]";
 
@@ -158,7 +158,7 @@ public class ZipCompressTest {
 
     @Test
     public void allAmericanRanges() {
-        List<List<Integer>> testList = makeListofLists(
+        List<List<Integer>> testList = ZipCompress.makeRangePairList(
                 Arrays.asList(
                         99501, 99950, 35004, 36925,
                         71601, 72959, 75502, 75502,
@@ -202,14 +202,4 @@ public class ZipCompressTest {
 
         Assert.assertEquals(expected, result.toString());
     }
-
-    // makeListofLists is only to make reading and building tests easier
-    private List<List<Integer>> makeListofLists(List<Integer> arr) {
-        List<List<Integer>> list = new ArrayList<>();
-        for (int index = 0; index < arr.size(); index += 2) {
-            list.add(Arrays.asList(arr.get(index), arr.get(index + 1)));
-        }
-        return list;
-    }
-
 }
